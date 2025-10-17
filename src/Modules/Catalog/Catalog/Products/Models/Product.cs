@@ -3,20 +3,21 @@
 namespace Catalog.Products.Models;
 public class Product : Aggregate<Guid>
 {
-    public string Name { get; set; } = default!;
-    public List<string> Categories { get; set; } = new();
-    public string Description { get; set; } = default!;
-    public string ImageFile { get; set; } = default!;
-    public decimal Price { get; set; }
-    public static Product Create(string name, List<string> categories, string description, string imageFile, decimal price)
+    public string Name { get; private set; } = default!;
+    public List<string> Category { get; private set; } = new();
+    public string Description { get; private set; } = default!;
+    public string ImageFile { get; private set; } = default!;
+    public decimal Price { get; private set; }
+    public static Product Create(Guid id, string name, List<string> category, string description, string imageFile, decimal price)
     {
         ArgumentException.ThrowIfNullOrEmpty(name);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
 
         var product = new Product
         {
+            Id = id,
             Name = name,
-            Categories = categories,
+            Category = category,
             Description = description,
             ImageFile = imageFile,
             Price = price
@@ -27,13 +28,13 @@ public class Product : Aggregate<Guid>
         return product;
     }
 
-    public void Update(string name, List<string> categories, string description, string imageFile, decimal price)
+    public void Update(string name, List<string> category, string description, string imageFile, decimal price)
     {
         ArgumentException.ThrowIfNullOrEmpty(name);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
         
         Name= name;
-        Categories= categories;
+        Category = category;
         Description= description;
         ImageFile= imageFile;
         Price= price;
