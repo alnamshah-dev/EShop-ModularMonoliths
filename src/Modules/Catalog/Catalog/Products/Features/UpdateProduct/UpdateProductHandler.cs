@@ -1,17 +1,25 @@
-﻿
-namespace Catalog.Products.Features.UpdateProduct;
-public record UpdateProductCommand(ProductDto productDto) : ICommand<UpdateProductResult>;
+﻿namespace Catalog.Products.Features.UpdateProduct;
+public record UpdateProductCommand(ProductDto Product) : ICommand<UpdateProductResult>;
 public record UpdateProductResult(bool IsSuccess);
 
+public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
+{
+    public UpdateProductCommandValidator()
+    {
+        RuleFor(x => x.Product.Id).NotEmpty().WithMessage("Id is required.");
+        RuleFor(x => x.Product.Name).NotEmpty().WithMessage("Name is required.");
+        RuleFor(x => x.Product.Price).GreaterThan(0).WithMessage("Price must be greater than 0.");
+    }
+}
 public class UpdateProductCommandHandler(CatalogDbContext dbContext) : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        var product = await dbContext.Products.FindAsync([command.productDto.Id],cancellationToken:cancellationToken);
+        var product = await dbContext.Products.FindAsync([command.Product.Id],cancellationToken:cancellationToken);
         if (product is null)
-            throw new Exception($"Product not found :{command.productDto.Id}");
+            throw new ProductNotFoundException(command.Product.Id);
 
-        UpdateProductWithNewValue(product,command.productDto);
+        UpdateProductWithNewValue(product,command.Product);
 
         dbContext.Products.Update(product);
         await dbContext.SaveChangesAsync(cancellationToken);
