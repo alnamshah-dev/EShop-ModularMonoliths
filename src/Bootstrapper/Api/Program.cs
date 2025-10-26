@@ -1,13 +1,19 @@
-using Serilog;
-using Shared.Exceptions.Handler;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddCarterWithAssemblies(typeof(CatalogModule).Assembly);
+// Add the services to the container
 
+// Common services : MediatR, Carter, FluentValidation
+var catalogAssembly = typeof(CatalogModule).Assembly;
+var basketAssembly = typeof(BasketModule).Assembly;
+builder.Services.AddCarterWithAssemblies(catalogAssembly,
+    basketAssembly);
+builder.Services.AddMediatRWithAssemblies(catalogAssembly,
+    basketAssembly);
+
+// Module services : Catalog, Basket, Ordering
 builder.Services
    .AddCatalogModule(builder.Configuration)
    .AddBasketModule(builder.Configuration)
@@ -18,6 +24,7 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline
 app.MapCarter();
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler(options => { });

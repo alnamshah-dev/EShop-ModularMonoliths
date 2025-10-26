@@ -1,7 +1,4 @@
-﻿
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-
-namespace Basket.Basket.Features.RemoveItemFromBasket;
+﻿namespace Basket.Basket.Features.RemoveItemFromBasket;
 
 public record RemoveItemFromBasketCommand(string UserName,Guid ProductId) :ICommand<RemoveItemFromBasketResult>;
 public record RemoveItemFromBasketResult(Guid Id);

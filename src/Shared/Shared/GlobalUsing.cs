@@ -3,3 +3,7 @@ global using Shared.Data.Seed;
 global using Shared.DDD;
 global using FluentValidation;
 global using Shared.CQRS;
+global using Microsoft.Extensions.DependencyInjection;
+global using System.Reflection;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Diagnostics;
