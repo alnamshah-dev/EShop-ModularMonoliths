@@ -23,7 +23,7 @@ public class AddItemIntoBasketHandler(IBasketRepository repository) : ICommandHa
                 command.ShoppingCartItem.Price,
                 command.ShoppingCartItem.ProductName
             );
-        await repository.SaveChangesAsync(cancellationToken);
+        await repository.SaveChangesAsync(command.UserName, cancellationToken);
         return new AddItemIntoBasketResult(shoppingCart.Id);
     }
 }
