@@ -1,20 +1,15 @@
-﻿namespace Basket.Basket.Features.GetBasket;
+﻿
+namespace Basket.Basket.Features.GetBasket;
 
 public record GetBasketQuery(string UserName):IQuery<GetBasketResult>;
 
 public record GetBasketResult(ShoppingCartDto ShoppingCart);
-public class GetBasketHandler(BasketDbContext dbContext) : IQueryHandler<GetBasketQuery, GetBasketResult>
+public class GetBasketHandler(IBasketRepository repository) : IQueryHandler<GetBasketQuery, GetBasketResult>
 {
     public async Task<GetBasketResult> Handle(GetBasketQuery query, CancellationToken cancellationToken)
     {
         // Get basket with UserName
-        var basket = await dbContext.ShoppingCarts
-            .AsNoTracking()
-            .Include(x=>x.Items)
-            .SingleOrDefaultAsync(x=>x.UserName == query.UserName);
-
-        if (basket is null)
-            throw new BasketNotFoundException(query.UserName);
+        var basket = await repository.GetBasket(query.UserName, true, cancellationToken);
 
         //mapping Basket entity to shoppingCartDto
         var basketDto = basket.Adapt<ShoppingCartDto>();

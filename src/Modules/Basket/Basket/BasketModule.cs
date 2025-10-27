@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Basket.Data.Repository;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Data;
@@ -10,9 +11,10 @@ public static class BasketModule
 {
     public static IServiceCollection AddBasketModule(this IServiceCollection services, IConfiguration configuration)
     {
+        // 2. Application Use Case services
+        services.AddScoped<IBasketRepository, BasketRepository>();
         // 3. Use Data - Infrastructure Services
         var connectionString = configuration.GetConnectionString("Database");
-
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
