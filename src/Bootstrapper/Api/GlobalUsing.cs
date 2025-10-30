@@ -7,3 +7,4 @@ global using FluentValidation;
 global using Serilog;
 global using Shared.Behaviors;
 global using Shared.Exceptions.Handler;
+global using Shared.Messaging.Extentions;
