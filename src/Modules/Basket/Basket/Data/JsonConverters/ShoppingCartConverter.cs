@@ -11,7 +11,7 @@ public class ShoppingCartConverter : JsonConverter<ShoppingCart>
         var jsonElement = jsonDocument.RootElement;
 
         var id = jsonElement.GetProperty("id").GetGuid();
-        var userName = jsonElement.GetProperty("userName").GetString();
+        var userName = jsonElement.GetProperty("userName").GetString()!;
         var itemsElement = jsonElement.GetProperty("items");
 
         var shoppingCart = ShoppingCart.Create(id, userName);
