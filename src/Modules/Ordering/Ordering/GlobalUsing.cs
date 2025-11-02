@@ -13,4 +13,8 @@ global using Shared.Contracts.CQRS;
 global using Ordering.Orders.Exceptions;
 global using Mapster;
 global using Shared.Pagination;
+global using Carter;
+global using Microsoft.AspNetCore.Routing;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Http;
 

@@ -8,3 +8,4 @@ global using Serilog;
 global using Shared.Behaviors;
 global using Shared.Exceptions.Handler;
 global using Shared.Messaging.Extentions;
+global using Keycloak.AuthServices.Authentication;
