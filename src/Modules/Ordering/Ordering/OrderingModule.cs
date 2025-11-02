@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Shared.Data.Interceptors;
-using Ordering.Data;
 using Shared.Data;
 
 namespace Ordering;

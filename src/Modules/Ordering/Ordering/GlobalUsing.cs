@@ -5,3 +5,12 @@ global using Ordering.Orders.ValueObjects;
 global using Shared.DDD;
 global using Ordering.Orders.Models;
 global using Microsoft.EntityFrameworkCore;
+global using Shared.Exceptions;
+global using FluentValidation;
+global using Ordering.Data;
+global using Ordering.Orders.Dtos;
+global using Shared.Contracts.CQRS;
+global using Ordering.Orders.Exceptions;
+global using Mapster;
+global using Shared.Pagination;
+
