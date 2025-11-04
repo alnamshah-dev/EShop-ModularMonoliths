@@ -16,3 +16,5 @@ global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using Basket.Data.Repository;
+global using MassTransit;
+global using Shared.Messaging.Events;
